@@ -438,83 +438,141 @@ ul.topic-list li {
    IDEA 3 — PASTEL LIGHT THEME  (Notion-style clean UI)
    ========================================================= */
 
-/* Overall light background */
 body {
   background: #f5f5f7 !important;
   color: #1f2937 !important;
 }
 
-/* Subject cards */
-.subject-card {
-  background: #ffffff !important;
-  border: 1px solid #e5e7eb !important;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08) !important;
+/* Container thoda slim lagta hai light theme me */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 20px;
 }
 
+/* Header text darker */
+h1 {
+  color: #111827;
+}
+
+.subtitle {
+  color: #6b7280;
+}
+
+/* Overall Progress text */
+#overallProgress {
+  color: #111827;
+}
+
+/* Legend text */
+.legend {
+  color: #6b7280;
+}
+
+/* Subject cards: white, soft shadow */
+.subject-card {
+  background: #ffffff !important;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+  backdrop-filter: none;
+}
+
+.subject-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12) !important;
+  border-color: #d1d5db !important;
+}
+
+/* Subject complete: light mint highlight */
 .subject-card.complete {
-  box-shadow: 0 0 0 2px #34d399, 0 4px 20px rgba(0,0,0,0.12) !important;
+  border-color: #34d399 !important;
+  box-shadow: 0 0 0 2px #a7f3d0, 0 6px 20px rgba(0, 0, 0, 0.12) !important;
   background: #ecfdf5 !important;
 }
 
-/* Light pastel accent per subject */
-.subject-card.subject-math { --subject-accent: #38bdf8; }
-.subject-card.subject-physics { --subject-accent: #a78bfa; }
-.subject-card.subject-chem { --subject-accent: #4ade80; }
-
-/* Left color strip */
-.subject-header {
-  border-left: 4px solid var(--subject-accent) !important;
-  padding-left: 14px !important;
+/* Subject header hover: light grey instead of dark gradient */
+.subject-header:hover {
+  background: #f3f4f6 !important;
 }
 
-/* Category / Unit / Part cards */
+/* Category / Unit / Part: white cards */
 .category-card,
 .unit-card,
 .part-card {
   background: #ffffff !important;
   border: 1px solid #e5e7eb !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
-.category-card.complete,
+.category-header:hover,
+.unit-header:hover {
+  background: #f9fafb !important;
+}
+
+/* Completed unit/part: soft green tint */
 .unit-card.complete,
 .part-card.complete {
-  border-color: var(--subject-accent) !important;
+  border-color: #34d399 !important;
   background: #f0fdf4 !important;
 }
 
-/* Text colors */
-.subject-title,
-.unit-title,
-.part-title,
-.topic-label {
-  color: #1f2937 !important;
+/* Part hover light */
+.part-card:hover {
+  transform: translateY(-1px);
+  border-color: #d1d5db !important;
 }
 
+/* Topic text darker */
+.topic-label,
+.unit-title,
+.part-title,
+.subject-title {
+  color: #111827 !important;
+}
+
+/* Meta text (counts, etc.) softer grey */
 .subject-meta,
+.subject-progress,
+.unit-topics-count,
 .unit-progress,
-.category-meta {
+.category-meta,
+.footer {
   color: #6b7280 !important;
 }
 
-/* Checkbox soft color */
+/* Checkboxes – soft green accent */
 .checkbox {
-  accent-color: var(--subject-accent) !important;
+  accent-color: #22c55e !important;
 }
 
-/* Pastel progress bar */
-.progress-banner {
-  background: #eef2ff !important;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.07) !important;
+/* Badges: light border, green when complete */
+.badge {
+  border-color: #e5e7eb;
+  color: #6b7280;
 }
 
-.progress-bar {
-  background: #e0f2fe !important;
-  border: 1px solid #bae6fd !important;
+.badge-complete,
+.badge-unit-complete {
+  border-color: #34d399 !important;
+  color: #15803d !important;
 }
 
-.progress-fill {
-  background: #38bdf8 !important;
-  box-shadow: none !important;
+/* Footer light */
+.footer {
+  color: #6b7280;
+}
+
+/* Light scrollbar */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar-track {
+    background: #e5e7eb !important;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5f5 !important;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af !important;
+  }
 }
 
