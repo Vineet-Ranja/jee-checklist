@@ -433,3 +433,88 @@ ul.topic-list li {
   }
   
 }
+
+/* =========================================================
+   IDEA 3 — PASTEL LIGHT THEME  (Notion-style clean UI)
+   ========================================================= */
+
+/* Overall light background */
+body {
+  background: #f5f5f7 !important;
+  color: #1f2937 !important;
+}
+
+/* Subject cards */
+.subject-card {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08) !important;
+}
+
+.subject-card.complete {
+  box-shadow: 0 0 0 2px #34d399, 0 4px 20px rgba(0,0,0,0.12) !important;
+  background: #ecfdf5 !important;
+}
+
+/* Light pastel accent per subject */
+.subject-card.subject-math { --subject-accent: #38bdf8; }
+.subject-card.subject-physics { --subject-accent: #a78bfa; }
+.subject-card.subject-chem { --subject-accent: #4ade80; }
+
+/* Left color strip */
+.subject-header {
+  border-left: 4px solid var(--subject-accent) !important;
+  padding-left: 14px !important;
+}
+
+/* Category / Unit / Part cards */
+.category-card,
+.unit-card,
+.part-card {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+}
+
+.category-card.complete,
+.unit-card.complete,
+.part-card.complete {
+  border-color: var(--subject-accent) !important;
+  background: #f0fdf4 !important;
+}
+
+/* Text colors */
+.subject-title,
+.unit-title,
+.part-title,
+.topic-label {
+  color: #1f2937 !important;
+}
+
+.subject-meta,
+.unit-progress,
+.category-meta {
+  color: #6b7280 !important;
+}
+
+/* Checkbox soft color */
+.checkbox {
+  accent-color: var(--subject-accent) !important;
+}
+
+/* Pastel progress bar */
+.progress-banner {
+  background: #eef2ff !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07) !important;
+}
+
+.progress-bar {
+  background: #e0f2fe !important;
+  border: 1px solid #bae6fd !important;
+}
+
+.progress-fill {
+  background: #38bdf8 !important;
+  box-shadow: none !important;
+}
+
