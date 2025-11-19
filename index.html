@@ -1774,6 +1774,15 @@
     function createSubjectCard(subjectName, subjectData) {
       const card = document.createElement("div");
       card.className = "subject-card";
+
+      if (subjectName === "Mathematics") {
+        card.classList.add("subject-math");
+      } else if (subjectName === "Physics") {
+        card.classList.add("subject-physics");
+      } else if (subjectName === "Chemistry") {
+        card.classList.add("subject-chem");
+      }
+      
       subjectCardElems[subjectName] = card;
 
       const header = document.createElement("div");
@@ -1974,4 +1983,5 @@
   </script>
 </body>
 </html>
+
 
