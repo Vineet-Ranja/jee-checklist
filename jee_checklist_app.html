@@ -1,0 +1,1975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JEE Main Syllabus Tracker – Vineet</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #020617;
+      color: #e5e7eb;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #9ca3af;
+      margin-bottom: 18px;
+    }
+
+    .subject-card {
+      background: #020617;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      border: 1px solid #1f2937;
+      overflow: hidden;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .subject-card.complete {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px #14532d;
+      background: #022c22;
+    }
+
+    .subject-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .subject-header:hover {
+      background: #020617;
+    }
+
+    .subject-title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .subject-meta {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .chevron {
+      transition: transform 0.2s ease;
+    }
+
+    .chevron.open {
+      transform: rotate(90deg);
+    }
+
+    .subject-body {
+      display: none;
+      padding: 0 10px 10px 10px;
+    }
+
+    .category-card {
+      background: #020617;
+      border-radius: 10px;
+      margin-top: 8px;
+      border: 1px solid #1f2937;
+      overflow: hidden;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+
+    .category-header:hover {
+      background: #020617;
+    }
+
+    .category-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .category-meta {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    .category-body {
+      display: none;
+      padding: 0 8px 8px 8px;
+    }
+
+    .unit-card {
+      background: #020617;
+      border-radius: 8px;
+      margin-top: 8px;
+      border: 1px solid #1f2937;
+      overflow: hidden;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .unit-card.complete {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px #14532d;
+      background: #022c22;
+    }
+
+    .unit-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+
+    .unit-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .unit-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .unit-topics-count {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    .unit-header:hover {
+      background: #020617;
+    }
+
+    .unit-body {
+      display: none;
+      padding: 0 12px 10px 22px;
+      background: #020617;
+      border-top: 1px solid #1f2937;
+    }
+
+    .part-card {
+      margin-top: 6px;
+      border-radius: 6px;
+      border: 1px solid #1f2937;
+      overflow: hidden;
+      background: #020617;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .part-card.complete {
+      border-color: #22c55e;
+      background: #022c22;
+    }
+
+    .part-header {
+      padding: 6px 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .part-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .part-title {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .part-body {
+      display: none;
+      padding: 4px 10px 8px 16px;
+      border-top: 1px solid #1f2937;
+    }
+
+    ul.topic-list {
+      margin: 6px 0;
+      padding-left: 0;
+      font-size: 0.85rem;
+      list-style: none;
+    }
+
+    ul.topic-list li {
+      margin-bottom: 4px;
+      line-height: 1.3;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .topic-label {
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .checkbox {
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+      margin-top: 1px;
+      accent-color: #22c55e;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid #374151;
+      color: #9ca3af;
+      margin-left: 6px;
+    }
+
+    .badge-complete {
+      border-color: #22c55e;
+      color: #bbf7d0;
+    }
+
+    .badge-unit-complete {
+      border-color: #22c55e;
+      color: #bbf7d0;
+      margin-left: 6px;
+    }
+
+    .badge-category {
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #1e293b;
+      color: #e5e7eb;
+      margin-left: 6px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 18px;
+      padding-bottom: 12px;
+    }
+
+    .legend {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .legend span {
+      margin: 0 8px;
+    }
+
+    .pill {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-right: 4px;
+      background: #22c55e;
+    }
+
+    .pill-pending {
+      background: #6b7280;
+    }
+
+    .pill-done {
+      background: #22c55e;
+    }
+
+    .unit-progress {
+      font-size: 0.7rem;
+      color: #9ca3af;
+      margin-left: 6px;
+    }
+
+    .subject-progress {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-left: 8px;
+    }
+
+    @media (max-width: 640px) {
+      .unit-body {
+        padding-left: 16px;
+      }
+      .container {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>JEE Main Paper 1 – Syllabus Tracker</h1>
+    <div class="subtitle">Mathematics • Physics • Chemistry – Topic-wise progress with auto-completion</div>
+
+    <div id="overallProgress"
+      style="text-align:center;font-size:0.9rem;margin-bottom:10px;color:#e5e7eb;">
+      Overall JEE Progress: 0% (0 / 0 topics done)
+    </div>
+
+
+    <div class="legend">
+      <span><span class="pill pill-pending"></span>Not completed</span>
+      <span><span class="pill pill-done"></span>Completed (unit/part/subject turns green)</span>
+    </div>
+
+    <div id="subjects"></div>
+
+    <div class="footer">
+      Progress is saved automatically in this browser (localStorage).<br>
+      Made by Amu for Vineet 💛
+    </div>
+  </div>
+
+  <script>
+    // ------------- DATA MODEL -------------
+
+    const syllabus = {
+      "Mathematics": {
+        units: [
+          {
+            id: "math_u1",
+            title: "Unit 1: Sets, Relations and Functions",
+            parts: [
+              {
+                id: "math_u1_sets",
+                title: "Sets",
+                topics: [
+                  "Sets and their representation",
+                  "Union, intersection and complement of sets and their algebraic properties",
+                  "Power set"
+                ]
+              },
+              {
+                id: "math_u1_relfunc",
+                title: "Relations and Functions",
+                topics: [
+                  "Relations, types of relations",
+                  "Equivalence relations",
+                  "Functions; one-one, into and onto functions",
+                  "Composition of functions"
+                ]
+              }
+            ]
+          },
+          {
+            id: "math_u2",
+            title: "Unit 2: Complex Numbers and Quadratic Equations",
+            parts: [
+              {
+                id: "math_u2_complex",
+                title: "Complex Numbers",
+                topics: [
+                  "Complex numbers as ordered pairs of reals",
+                  "Representation of complex numbers in the form a + ib",
+                  "Representation of complex numbers in Argand plane (Argand diagram)",
+                  "Algebra of complex numbers",
+                  "Modulus and argument (amplitude) of a complex number"
+                ]
+              },
+              {
+                id: "math_u2_quadratic",
+                title: "Quadratic Equations",
+                topics: [
+                  "Quadratic equations in real and complex number systems and their solutions",
+                  "Relations between roots and coefficients",
+                  "Nature of roots",
+                  "Formation of quadratic equations with given roots"
+                ]
+              }
+            ]
+          },
+          {
+            id: "math_u3",
+            title: "Unit 3: Matrices and Determinants",
+            topics: [
+              "Matrices, algebra of matrices",
+              "Types of matrices",
+              "Determinants and matrices of order 2 and 3",
+              "Evaluation of determinants",
+              "Area of triangles using determinants",
+              "Adjoint and inverse of a square matrix",
+              "Test of consistency of system of equations",
+              "Solution of simultaneous linear equations in two or three variables using matrices"
+            ]
+          },
+          {
+            id: "math_u4",
+            title: "Unit 4: Permutations and Combinations",
+            topics: [
+              "Fundamental principle of counting",
+              "Permutations and combinations",
+              "Meaning of P(n,r) and C(n,r)",
+              "Simple applications"
+            ]
+          },
+          {
+            id: "math_u5",
+            title: "Unit 5: Binomial Theorem and Its Simple Applications",
+            topics: [
+              "Binomial theorem for a positive integral index",
+              "General term",
+              "Middle term",
+              "Simple applications"
+            ]
+          },
+          {
+            id: "math_u6",
+            title: "Unit 6: Sequence and Series",
+            topics: [
+              "Arithmetic progression (A.P.)",
+              "Geometric progression (G.P.)",
+              "Insertion of arithmetic means between two given numbers",
+              "Insertion of geometric means between two given numbers",
+              "Relation between A.M and G.M"
+            ]
+          },
+          {
+            id: "math_u7",
+            title: "Unit 7: Limit, Continuity and Differentiability",
+            parts: [
+              {
+                id: "math_u7_functions",
+                title: "Functions and Graphs",
+                topics: [
+                  "Real–valued functions",
+                  "Algebra of functions: polynomial, rational, trigonometric, logarithmic, exponential functions",
+                  "Inverse functions",
+                  "Graphs of simple functions"
+                ]
+              },
+              {
+                id: "math_u7_diff",
+                title: "Limits and Differentiation",
+                topics: [
+                  "Limits, continuity and differentiability",
+                  "Differentiation of sum, difference, product and quotient of two functions",
+                  "Differentiation of trigonometric, inverse trigonometric, logarithmic, exponential, composite and implicit functions",
+                  "Derivatives of order up to two"
+                ]
+              },
+              {
+                id: "math_u7_app",
+                title: "Applications of Derivatives",
+                topics: [
+                  "Rate of change of quantities",
+                  "Monotonic (increasing and decreasing) functions",
+                  "Maxima and minima of functions of one variable"
+                ]
+              }
+            ]
+          },
+          {
+            id: "math_u8",
+            title: "Unit 8: Integral Calculus",
+            parts: [
+              {
+                id: "math_u8_basic",
+                title: "Basic Integration",
+                topics: [
+                  "Integral as an anti-derivative",
+                  "Fundamental integrals involving algebraic, trigonometric, exponential and logarithmic functions"
+                ]
+              },
+              {
+                id: "math_u8_methods",
+                title: "Methods of Integration",
+                topics: [
+                  "Integration by substitution",
+                  "Integration by parts",
+                  "Integration by partial fractions",
+                  "Integration using trigonometric identities",
+                  "Evaluation of simple standard-type integrals"
+                ]
+              },
+              {
+                id: "math_u8_definite",
+                title: "Definite Integrals and Area",
+                topics: [
+                  "Fundamental theorem of calculus",
+                  "Properties of definite integrals",
+                  "Evaluation of definite integrals",
+                  "Determining areas of regions bounded by simple curves in standard forms"
+                ]
+              }
+            ]
+          },
+          {
+            id: "math_u9",
+            title: "Unit 9: Differential Equations",
+            topics: [
+              "Ordinary differential equations",
+              "Order and degree of a differential equation",
+              "Solution of differential equation by method of separation of variables",
+              "Solution of homogeneous differential equations",
+              "Solution of linear differential equation of the type dy/dx + P(x)y = Q(x)"
+            ]
+          },
+          {
+            id: "math_u10",
+            title: "Unit 10: Coordinate Geometry",
+            parts: [
+              {
+                id: "math_u10_basics",
+                title: "Basics of Coordinate Geometry",
+                topics: [
+                  "Cartesian system of rectangular coordinates in a plane",
+                  "Distance formula",
+                  "Section formula",
+                  "Locus and its equation",
+                  "Slope of a line",
+                  "Parallel and perpendicular lines",
+                  "Intercepts of a line on coordinate axes"
+                ]
+              },
+              {
+                id: "math_u10_line",
+                title: "Straight Line",
+                topics: [
+                  "Straight line: various forms of equation of a line",
+                  "Intersection of lines",
+                  "Angle between two lines",
+                  "Conditions for concurrence of three lines",
+                  "Distance of a point from a line"
+                ]
+              },
+              {
+                id: "math_u10_triangle_centres",
+                title: "Triangle Centres",
+                topics: [
+                  "Coordinates of centroid of a triangle",
+                  "Coordinates of orthocentre of a triangle",
+                  "Coordinates of circumcentre of a triangle"
+                ]
+              },
+              {
+                id: "math_u10_circle",
+                title: "Circle",
+                topics: [
+                  "Circle: standard form and general form, radius and centre",
+                  "Equation of a circle when endpoints of a diameter are given",
+                  "Points of intersection of a line and a circle with centre at origin"
+                ]
+              },
+              {
+                id: "math_u10_conics",
+                title: "Conic Sections",
+                topics: [
+                  "Conic sections: equations of parabola, ellipse, hyperbola in standard forms"
+                ]
+              }
+            ]
+          },
+          {
+            id: "math_u11",
+            title: "Unit 11: Three Dimensional Geometry",
+            topics: [
+              "Coordinates of a point in space",
+              "Distance between two points",
+              "Section formula in 3D",
+              "Direction ratios and direction cosines",
+              "Angle between two intersecting lines",
+              "Equation of a line",
+              "Skew lines",
+              "Shortest distance between skew lines and its equation"
+            ]
+          },
+          {
+            id: "math_u12",
+            title: "Unit 12: Vector Algebra",
+            topics: [
+              "Vectors and scalars",
+              "Addition of vectors",
+              "Components of a vector in 2D and 3D",
+              "Scalar (dot) product",
+              "Vector (cross) product"
+            ]
+          },
+          {
+            id: "math_u13",
+            title: "Unit 13: Statistics and Probability",
+            parts: [
+              {
+                id: "math_u13_stats",
+                title: "Statistics",
+                topics: [
+                  "Measures of dispersion",
+                  "Calculation of mean, median, mode (grouped & ungrouped data)",
+                  "Calculation of standard deviation, variance, mean deviation (grouped & ungrouped)"
+                ]
+              },
+              {
+                id: "math_u13_prob",
+                title: "Probability",
+                topics: [
+                  "Probability of an event",
+                  "Addition theorem of probability",
+                  "Multiplication theorem of probability",
+                  "Bayes’ theorem",
+                  "Probability distribution of a random variable"
+                ]
+              }
+            ]
+          },
+          {
+            id: "math_u14",
+            title: "Unit 14: Trigonometry",
+            topics: [
+              "Trigonometrical identities",
+              "Trigonometrical functions",
+              "Inverse trigonometrical functions and their properties"
+            ]
+          }
+        ]
+      },
+
+      "Physics": {
+        units: [
+          {
+            id: "phy_u1",
+            title: "Unit 1: Units and Measurements",
+            topics: [
+              "Units of measurements, system of units",
+              "SI units, fundamental and derived units",
+              "Least count, significant figures",
+              "Errors in measurements",
+              "Dimensions of physical quantities",
+              "Dimensional analysis and its applications"
+            ]
+          },
+          {
+            id: "phy_u2",
+            title: "Unit 2: Kinematics",
+            topics: [
+              "Frame of reference",
+              "Motion in a straight line: speed, velocity, uniform & non-uniform motion",
+              "Average speed and instantaneous velocity",
+              "Uniformly accelerated motion",
+              "Velocity–time & position–time graphs",
+              "Relations for uniformly accelerated motion",
+              "Relative velocity",
+              "Motion in a plane",
+              "Projectile motion",
+              "Uniform circular motion"
+            ]
+          },
+          {
+            id: "phy_u3",
+            title: "Unit 3: Laws of Motion",
+            topics: [
+              "Force and inertia",
+              "Newton’s First, Second and Third laws of motion",
+              "Momentum, impulse",
+              "Law of conservation of linear momentum and applications",
+              "Equilibrium of concurrent forces",
+              "Static and kinetic friction, laws of friction, rolling friction",
+              "Dynamics of uniform circular motion",
+              "Centripetal force and applications: Vehicle on level circular road, vehicle on banked road"
+            ]
+          },
+          {
+            id: "phy_u4",
+            title: "Unit 4: Work, Energy and Power",
+            topics: [
+              "Work done by constant and variable force",
+              "Kinetic and potential energy",
+              "Work–energy theorem",
+              "Power",
+              "Potential energy of a spring",
+              "Conservation of mechanical energy",
+              "Conservative and non-conservative forces",
+              "Motion in a vertical circle",
+              "Elastic and inelastic collisions in one and two dimensions"
+            ]
+          },
+          {
+            id: "phy_u5",
+            title: "Unit 5: Rotational Motion",
+            topics: [
+              "Centre of mass of two-particle system & rigid body",
+              "Basic concepts of rotational motion",
+              "Moment of a force, torque",
+              "Angular momentum, conservation of angular momentum and applications",
+              "Moment of inertia, radius of gyration",
+              "Values of moment of inertia for simple geometrical objects",
+              "Parallel and perpendicular axes theorems and their applications",
+              "Equilibrium of rigid bodies",
+              "Rigid body rotation and equations of rotational motion",
+              "Comparison of linear and rotational motion"
+            ]
+          },
+          {
+            id: "phy_u6",
+            title: "Unit 6: Gravitation",
+            topics: [
+              "Universal law of gravitation",
+              "Acceleration due to gravity and its variation with altitude and depth",
+              "Kepler’s laws of planetary motion",
+              "Gravitational potential energy, gravitational potential",
+              "Escape velocity",
+              "Motion of a satellite, orbital velocity, time period and energy of satellite"
+            ]
+          },
+          {
+            id: "phy_u7",
+            title: "Unit 7: Properties of Solids and Liquids",
+            topics: [
+              "Elastic behaviour, stress–strain relationship",
+              "Hooke’s law",
+              "Young’s modulus, bulk modulus, modulus of rigidity",
+              "Pressure due to a fluid column",
+              "Pascal’s law and its applications",
+              "Effect of gravity on fluid pressure",
+              "Viscosity, Stoke’s law, terminal velocity",
+              "Streamline and turbulent flow, critical velocity",
+              "Bernoulli’s principle and its applications",
+              "Surface energy and surface tension",
+              "Angle of contact",
+              "Excess pressure across curved surface",
+              "Applications of surface tension: drops, bubbles, capillary rise",
+              "Heat, temperature",
+              "Thermal expansion",
+              "Specific heat capacity, calorimetry",
+              "Change of state, latent heat",
+              "Heat transfer: conduction, convection, radiation"
+            ]
+          },
+          {
+            id: "phy_u8",
+            title: "Unit 8: Thermodynamics",
+            topics: [
+              "Thermal equilibrium, concept of temperature",
+              "Zeroth law of thermodynamics",
+              "Heat, work and internal energy",
+              "First law of thermodynamics, isothermal & adiabatic processes",
+              "Second law of thermodynamics: reversible & irreversible processes"
+            ]
+          },
+          {
+            id: "phy_u9",
+            title: "Unit 9: Kinetic Theory of Gases",
+            topics: [
+              "Equation of state of a perfect gas",
+              "Work done on compressing a gas",
+              "Assumptions of kinetic theory",
+              "Concept of pressure",
+              "Kinetic interpretation of temperature",
+              "RMS speed of gas molecules",
+              "Degrees of freedom",
+              "Law of equipartition of energy & applications to specific heat capacities of gases",
+              "Mean free path",
+              "Avogadro’s number"
+            ]
+          },
+          {
+            id: "phy_u10",
+            title: "Unit 10: Oscillations and Waves",
+            parts: [
+              {
+                id: "phy_u10_osc",
+                title: "Oscillations & SHM",
+                topics: [
+                  "Oscillations and periodic motion: time period, frequency, displacement–time relation",
+                  "Simple harmonic motion (SHM) and its equation, phase",
+                  "Oscillations of a spring: restoring force & force constant",
+                  "Energy in SHM: kinetic & potential energy",
+                  "Simple pendulum: derivation of time period"
+                ]
+              },
+              {
+                id: "phy_u10_waves",
+                title: "Waves",
+                topics: [
+                  "Wave motion, longitudinal & transverse waves",
+                  "Speed of a travelling wave",
+                  "Displacement relation for a progressive wave",
+                  "Superposition principle",
+                  "Reflection of waves",
+                  "Standing waves in strings & organ pipes, fundamental mode and harmonics",
+                  "Beats"
+                ]
+              }
+            ]
+          },
+          {
+            id: "phy_u11",
+            title: "Unit 11: Electrostatics",
+            parts: [
+              {
+                id: "phy_u11_field",
+                title: "Charge & Field",
+                topics: [
+                  "Electric charges, conservation of charge",
+                  "Coulomb’s law of force between point charges",
+                  "Superposition principle, continuous charge distribution",
+                  "Electric field, field due to point charge",
+                  "Electric field lines",
+                  "Electric dipole, field due to dipole, torque on dipole",
+                  "Electric flux, Gauss’s law and applications (infinitely long wire, infinite plane sheet, thin spherical shell)"
+                ]
+              },
+              {
+                id: "phy_u11_potential",
+                title: "Potential & Capacitance",
+                topics: [
+                  "Electric potential: due to point charge, dipole, system of charges",
+                  "Potential difference, equipotential surfaces",
+                  "Electric potential energy of system of two point charges and of a dipole in an electrostatic field",
+                  "Conductors and insulators",
+                  "Dielectrics and electric polarization",
+                  "Capacitors and capacitance",
+                  "Combination of capacitors in series and parallel",
+                  "Capacitance of parallel plate capacitor with/without dielectric",
+                  "Energy stored in a capacitor"
+                ]
+              }
+            ]
+          },
+          {
+            id: "phy_u12",
+            title: "Unit 12: Current Electricity",
+            topics: [
+              "Electric current, drift velocity, mobility & relation with current",
+              "Ohm’s law",
+              "Electrical resistance, I–V characteristics of Ohmic & non-Ohmic conductors",
+              "Electrical energy & power",
+              "Resistivity & conductivity",
+              "Series and parallel combinations of resistors",
+              "Temperature dependence of resistance",
+              "Internal resistance, potential difference & emf of cell",
+              "Series & parallel combination of cells",
+              "Kirchhoff’s laws and applications",
+              "Wheatstone bridge",
+              "Metre bridge"
+            ]
+          },
+          {
+            id: "phy_u13",
+            title: "Unit 13: Magnetic Effects of Current and Magnetism",
+            parts: [
+              {
+                id: "phy_u13_currentmag",
+                title: "Magnetic Effect of Current",
+                topics: [
+                  "Biot–Savart law & application to circular loop",
+                  "Ampere’s law & application to long straight wire & solenoid",
+                  "Force on moving charge in uniform electric and magnetic fields",
+                  "Force on current-carrying conductor in uniform magnetic field",
+                  "Force between two parallel current-carrying conductors – definition of ampere",
+                  "Torque on current loop in magnetic field",
+                  "Moving coil galvanometer: sensitivity, conversion to ammeter & voltmeter"
+                ]
+              },
+              {
+                id: "phy_u13_magnetism",
+                title: "Magnetism",
+                topics: [
+                  "Current loop as magnetic dipole & its dipole moment",
+                  "Bar magnet as equivalent solenoid",
+                  "Magnetic field lines",
+                  "Magnetic field due to bar magnet (along axis & equatorial)",
+                  "Torque on magnetic dipole in uniform field",
+                  "Para-, dia- and ferromagnetic substances; effect of temperature on magnetic properties"
+                ]
+              }
+            ]
+          },
+          {
+            id: "phy_u14",
+            title: "Unit 14: Electromagnetic Induction and Alternating Currents",
+            parts: [
+              {
+                id: "phy_u14_emi",
+                title: "Electromagnetic Induction",
+                topics: [
+                  "Electromagnetic induction: Faraday’s law, induced emf & current",
+                  "Lenz’s law, eddy currents",
+                  "Self & mutual induction"
+                ]
+              },
+              {
+                id: "phy_u14_ac",
+                title: "Alternating Current",
+                topics: [
+                  "Alternating current, peak & RMS values",
+                  "Reactance & impedance",
+                  "LCR series circuit, resonance",
+                  "Power in AC circuits, wattless current",
+                  "AC generator and transformer"
+                ]
+              }
+            ]
+          },
+          {
+            id: "phy_u15",
+            title: "Unit 15: Electromagnetic Waves",
+            topics: [
+              "Displacement current",
+              "Electromagnetic waves & their characteristics",
+              "Transverse nature of EM waves",
+              "Electromagnetic spectrum: radio waves, microwaves, IR, visible, UV, X-rays, gamma rays",
+              "Applications of electromagnetic waves"
+            ]
+          },
+          {
+            id: "phy_u16",
+            title: "Unit 16: Optics",
+            parts: [
+              {
+                id: "phy_u16_ray",
+                title: "Ray Optics",
+                topics: [
+                  "Reflection of light, spherical mirrors, mirror formula",
+                  "Refraction at plane & spherical surfaces",
+                  "Thin lens formula & lens maker’s formula",
+                  "Total internal reflection & applications",
+                  "Magnification, power of lens",
+                  "Combination of thin lenses in contact",
+                  "Refraction through prism",
+                  "Microscope and astronomical telescope (refracting & reflecting) and magnifying power"
+                ]
+              },
+              {
+                id: "phy_u16_wave",
+                title: "Wave Optics",
+                topics: [
+                  "Wavefront, Huygens’ principle",
+                  "Reflection & refraction using Huygens’ principle",
+                  "Interference: Young’s double slit experiment, fringe width",
+                  "Coherent sources, sustained interference",
+                  "Diffraction due to single slit, width of central maximum",
+                  "Polarization: plane-polarized light, Brewster’s law, uses & Polaroids"
+                ]
+              }
+            ]
+          },
+          {
+            id: "phy_u17",
+            title: "Unit 17: Dual Nature of Matter and Radiation",
+            topics: [
+              "Dual nature of radiation",
+              "Photoelectric effect: Hertz and Lenard’s observations",
+              "Einstein’s photoelectric equation, particle nature of light",
+              "Matter waves, de Broglie relation"
+            ]
+          },
+          {
+            id: "phy_u18",
+            title: "Unit 18: Atoms and Nuclei",
+            topics: [
+              "Alpha particle scattering experiment",
+              "Rutherford’s model of atom",
+              "Bohr model, energy levels, hydrogen spectrum",
+              "Nucleus: composition & size",
+              "Atomic masses",
+              "Mass–energy relation, mass defect",
+              "Binding energy per nucleon & variation with mass number",
+              "Nuclear fission & fusion"
+            ]
+          },
+          {
+            id: "phy_u19",
+            title: "Unit 19: Electronic Devices",
+            topics: [
+              "Semiconductors",
+              "Semiconductor diode: I–V characteristics (forward & reverse bias), rectifier",
+              "I–V characteristics of LED, photodiode, solar cell",
+              "Zener diode & its use as voltage regulator",
+              "Logic gates: OR, AND, NOT, NAND, NOR"
+            ]
+          },
+          {
+            id: "phy_u20",
+            title: "Unit 20: Experimental Skills",
+            topics: [
+              "Vernier calipers – internal, external diameter & depth measurement",
+              "Screw gauge – thickness/diameter of thin sheet/wire",
+              "Simple pendulum – energy dissipation (plot A² vs time)",
+              "Metre scale – mass using principle of moments",
+              "Young’s modulus of wire",
+              "Surface tension of water (capillary rise, detergent effect)",
+              "Coefficient of viscosity (terminal velocity of sphere)",
+              "Speed of sound in air (resonance tube)",
+              "Specific heat capacity of solids & liquids (method of mixtures)",
+              "Resistivity of wire (metre bridge)",
+              "Resistance of wire (Ohm’s law)",
+              "Resistance & figure of merit of galvanometer (half deflection)",
+              "Focal length of convex/concave mirror & convex lens (parallax method)",
+              "Angle of deviation vs angle of incidence for prism",
+              "Refractive index of glass slab (travelling microscope)",
+              "I–V curves of p–n junction diode (forward/reverse bias)",
+              "I–V curve of Zener diode and reverse breakdown voltage",
+              "Identification of diode, LED, resistor, capacitor from mixed items"
+            ]
+          }
+        ]
+      },
+
+      "Chemistry": {
+        categories: [
+          {
+            id: "chem_phys",
+            title: "Physical Chemistry",
+            units: [
+              {
+                id: "chem_u1",
+                title: "Unit 1: Some Basic Concepts in Chemistry",
+                topics: [
+                  "Matter and its nature",
+                  "Dalton’s atomic theory",
+                  "Concept of atom, molecule, element, compound",
+                  "Laws of chemical combination",
+                  "Atomic and molecular masses",
+                  "Mole concept, molar mass",
+                  "Percentage composition",
+                  "Empirical and molecular formulae",
+                  "Chemical equations and stoichiometry"
+                ]
+              },
+              {
+                id: "chem_u2",
+                title: "Unit 2: Atomic Structure",
+                topics: [
+                  "Nature of electromagnetic radiation",
+                  "Photoelectric effect",
+                  "Spectrum of hydrogen atom",
+                  "Bohr model: postulates, energy & radius of orbits, limitations",
+                  "Dual nature of matter, de Broglie relation",
+                  "Heisenberg uncertainty principle",
+                  "Quantum mechanical model: main features",
+                  "Atomic orbitals as one-electron wave functions",
+                  "Variation of ψ and ψ² with r for 1s and 2s orbitals",
+                  "Quantum numbers: principal, angular momentum, magnetic – significance",
+                  "Shapes of s, p, d orbitals",
+                  "Electron spin & spin quantum number",
+                  "Aufbau principle, Pauli’s exclusion principle, Hund’s rule",
+                  "Electronic configuration; extra stability of half & completely filled orbitals"
+                ]
+              },
+              {
+                id: "chem_u3",
+                title: "Unit 3: Chemical Bonding and Molecular Structure",
+                topics: [
+                  "Kossel–Lewis approach: ionic & covalent bond",
+                  "Ionic bonding: formation, factors affecting, lattice enthalpy",
+                  "Covalent bonding: electronegativity, Fajan’s rule, dipole moment",
+                  "VSEPR theory and shapes of simple molecules",
+                  "Valence bond theory, hybridization (s, p, d orbitals), resonance",
+                  "Molecular orbital theory: LCAO, bonding & antibonding MOs, sigma & pi bonds",
+                  "MO configurations of homonuclear diatomic molecules",
+                  "Bond order, bond length, bond energy",
+                  "Metallic bonding (elementary idea)",
+                  "Hydrogen bonding and applications"
+                ]
+              },
+              {
+                id: "chem_u4",
+                title: "Unit 4: Chemical Thermodynamics",
+                topics: [
+                  "System and surroundings; extensive & intensive properties",
+                  "State functions, entropy, types of processes",
+                  "First law: work, heat, internal energy, enthalpy",
+                  "Heat capacity, molar heat capacity",
+                  "Hess’s law",
+                  "Enthalpies of bond dissociation, combustion, formation, atomization, sublimation, phase transition, hydration, ionization, solution",
+                  "Second law: spontaneity, ΔS of universe, ΔG of system as criteria",
+                  "Standard Gibbs energy change ΔG° and equilibrium constant"
+                ]
+              },
+              {
+                id: "chem_u5",
+                title: "Unit 5: Solutions",
+                topics: [
+                  "Concentration units: molality, molarity, mole fraction, % by mass & volume",
+                  "Vapour pressure of solutions, Raoult’s law",
+                  "Ideal & non-ideal solutions, vapour pressure–composition plots",
+                  "Colligative properties: relative lowering of vapour pressure",
+                  "Depression in freezing point",
+                  "Elevation in boiling point",
+                  "Osmotic pressure",
+                  "Determination of molar mass via colligative properties",
+                  "Abnormal molar masses, van’t Hoff factor"
+                ]
+              },
+              {
+                id: "chem_u6",
+                title: "Unit 6: Equilibrium",
+                parts: [
+                  {
+                    id: "chem_u6_phys",
+                    title: "Equilibria Involving Physical Processes",
+                    topics: [
+                      "Meaning & concept of dynamic equilibrium",
+                      "Equilibria involving physical processes: solid–liquid, liquid–gas, gas–gas, solid–gas equilibria",
+                      "Henry’s law",
+                      "General characteristics of equilibrium involving physical processes"
+                    ]
+                  },
+                  {
+                    id: "chem_u6_chem",
+                    title: "Equilibrium Involving Chemical Processes",
+                    topics: [
+                      "Law of chemical equilibrium",
+                      "Equilibrium constants Kp and Kc and their significance",
+                      "ΔG and ΔG° in chemical equilibrium",
+                      "Factors affecting equilibrium: concentration, pressure, temperature, catalyst",
+                      "Le Chatelier’s principle"
+                    ]
+                  },
+                  {
+                    id: "chem_u6_ionic",
+                    title: "Ionic Equilibrium",
+                    topics: [
+                      "Strong & weak electrolytes, ionization of electrolytes",
+                      "Concepts of acids & bases (Arrhenius, Bronsted–Lowry, Lewis)",
+                      "Multistage ionization and ionization constants",
+                      "Ionization of water, pH scale",
+                      "Common ion effect",
+                      "Hydrolysis of salts & pH of their solutions",
+                      "Solubility of sparingly soluble salts and solubility product",
+                      "Buffer solutions"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "chem_u7",
+                title: "Unit 7: Redox Reactions and Electrochemistry",
+                topics: [
+                  "Electronic concept of oxidation & reduction",
+                  "Redox reactions",
+                  "Oxidation number: rules and balancing redox equations",
+                  "Electrolytic & metallic conduction",
+                  "Conductance in electrolytic solutions, molar conductivity & variation with concentration",
+                  "Kohlrausch’s law & applications",
+                  "Electrolytic & galvanic cells",
+                  "Electrodes, standard electrode potential, half-cell & cell reactions",
+                  "EMF of galvanic cell and its measurement",
+                  "Nernst equation and applications",
+                  "Relation between cell potential and Gibbs energy change",
+                  "Dry cell, lead accumulator, fuel cells"
+                ]
+              },
+              {
+                id: "chem_u8",
+                title: "Unit 8: Chemical Kinetics",
+                topics: [
+                  "Rate of reaction",
+                  "Factors affecting rate: concentration, temperature, pressure, catalyst",
+                  "Elementary & complex reactions",
+                  "Order & molecularity",
+                  "Rate law, rate constant and units",
+                  "Differential & integral forms for zero and first order reactions",
+                  "Half-life for zero and first order",
+                  "Effect of temperature on rate; Arrhenius equation",
+                  "Activation energy and its calculation",
+                  "Collision theory of bimolecular gaseous reactions (qualitative)"
+                ]
+              }
+            ]
+          },
+          {
+            id: "chem_inorg",
+            title: "Inorganic Chemistry",
+            units: [
+              {
+                id: "chem_u9",
+                title: "Unit 9: Classification of Elements and Periodicity in Properties",
+                topics: [
+                  "Modern periodic law, present periodic table",
+                  "s, p, d, f block elements",
+                  "Periodic trends: atomic & ionic radii",
+                  "Ionization enthalpy",
+                  "Electron gain enthalpy",
+                  "Valence, oxidation states",
+                  "Chemical reactivity"
+                ]
+              },
+              {
+                id: "chem_u10",
+                title: "Unit 10: p-Block Elements (Groups 13–18)",
+                topics: [
+                  "General introduction to p-block elements",
+                  "Electronic configuration of group 13–18 elements",
+                  "General trends in physical properties across period and down group",
+                  "General trends in chemical properties across period and down group",
+                  "Unique behaviour of the first element in each group"
+                ]
+              },
+              {
+                id: "chem_u11",
+                title: "Unit 11: d- and f-Block Elements",
+                topics: [
+                  "Transition elements (d-block): introduction, occurrence, electronic configuration",
+                  "General trends: physical properties, ionization enthalpy, oxidation states, atomic radii",
+                  "Colour, catalytic behaviour, magnetic properties, complex formation",
+                  "Interstitial compounds, alloy formation",
+                  "Preparation, properties & uses of K2Cr2O7 and KMnO4",
+                  "Inner transition elements (f-block): lanthanoids (electronic configuration, oxidation states, lanthanoid contraction)",
+                  "Actinoids: electronic configuration, oxidation states"
+                ]
+              },
+              {
+                id: "chem_u12",
+                title: "Unit 12: Coordination Compounds",
+                topics: [
+                  "Introduction to coordination compounds",
+                  "Werner’s theory",
+                  "Ligands, coordination number, denticity, chelation",
+                  "IUPAC nomenclature of mononuclear complexes",
+                  "Isomerism in coordination compounds",
+                  "Bonding: valence bond approach, basic ideas of crystal field theory",
+                  "Colour and magnetic properties",
+                  "Importance in qualitative analysis, metal extraction, biological systems"
+                ]
+              }
+            ]
+          },
+          {
+            id: "chem_org",
+            title: "Organic Chemistry & Practical",
+            units: [
+              {
+                id: "chem_u13",
+                title: "Unit 13: Purification and Characterisation of Organic Compounds",
+                parts: [
+                  {
+                    id: "chem_u13_pur",
+                    title: "Purification Methods",
+                    topics: [
+                      "Crystallization",
+                      "Sublimation",
+                      "Distillation",
+                      "Differential extraction",
+                      "Chromatography – principles and applications"
+                    ]
+                  },
+                  {
+                    id: "chem_u13_qual",
+                    title: "Qualitative Analysis",
+                    topics: [
+                      "Detection of nitrogen",
+                      "Detection of sulphur",
+                      "Detection of phosphorus",
+                      "Detection of halogens"
+                    ]
+                  },
+                  {
+                    id: "chem_u13_quant",
+                    title: "Quantitative Analysis",
+                    topics: [
+                      "Estimation of carbon",
+                      "Estimation of hydrogen",
+                      "Estimation of nitrogen",
+                      "Estimation of halogens",
+                      "Estimation of sulphur",
+                      "Estimation of phosphorus",
+                      "Calculations of empirical and molecular formulae",
+                      "Numerical problems in organic quantitative analysis"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "chem_u14",
+                title: "Unit 14: Some Basic Principles of Organic Chemistry",
+                topics: [
+                  "Tetravalency of carbon",
+                  "Shapes of simple molecules, hybridization (s and p)",
+                  "Classification of organic compounds by functional groups (halogens, O, N, S)",
+                  "Homologous series",
+                  "Isomerism: structural and stereoisomerism",
+                  "Nomenclature: trivial and IUPAC",
+                  "Covalent bond fission: homolytic and heterolytic",
+                  "Reaction intermediates: free radicals, carbocations, carbanions; stability",
+                  "Electrophiles and nucleophiles",
+                  "Electronic effects: inductive, electromeric, resonance, hyperconjugation",
+                  "Types of organic reactions: substitution, addition, elimination, rearrangement"
+                ]
+              },
+              {
+                id: "chem_u15",
+                title: "Unit 15: Hydrocarbons",
+                parts: [
+                  {
+                    id: "chem_u15_alkanes",
+                    title: "Alkanes",
+                    topics: [
+                      "Classification and IUPAC nomenclature of hydrocarbons",
+                      "General methods of preparation and properties of alkanes",
+                      "Conformations: sawhorse and Newman projections (ethane)",
+                      "Mechanism of halogenation of alkanes"
+                    ]
+                  },
+                  {
+                    id: "chem_u15_alkenes",
+                    title: "Alkenes",
+                    topics: [
+                      "General methods of preparation and properties of alkenes",
+                      "Geometrical isomerism",
+                      "Mechanism of electrophilic addition",
+                      "Addition of hydrogen, halogens, water, hydrogen halides (Markovnikov’s rule and peroxide effect)",
+                      "Ozonolysis",
+                      "Polymerization of alkenes"
+                    ]
+                  },
+                  {
+                    id: "chem_u15_alkynes",
+                    title: "Alkynes",
+                    topics: [
+                      "General methods of preparation and properties of alkynes",
+                      "Acidic character of alkynes",
+                      "Addition of hydrogen, halogens, water and hydrogen halides",
+                      "Polymerization of alkynes"
+                    ]
+                  },
+                  {
+                    id: "chem_u15_aromatics",
+                    title: "Aromatic Hydrocarbons",
+                    topics: [
+                      "Aromatic hydrocarbons: nomenclature",
+                      "Benzene – structure and aromaticity",
+                      "Electrophilic substitution: halogenation, nitration",
+                      "Friedel–Crafts alkylation and acylation",
+                      "Directive influence of substituents in monosubstituted benzene"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "chem_u16",
+                title: "Unit 16: Organic Compounds Containing Halogens",
+                topics: [
+                  "General methods of preparation of haloalkanes and haloarenes",
+                  "Physical and chemical properties",
+                  "Nature of C–X bond",
+                  "Mechanisms of substitution reactions",
+                  "Uses and environmental effects of chloroform",
+                  "Uses and environmental effects of iodoform",
+                  "Uses and environmental effects of freons",
+                  "Uses and environmental effects of DDT"
+                ]
+              },
+              {
+                id: "chem_u17",
+                title: "Unit 17: Organic Compounds Containing Oxygen",
+                parts: [
+                  {
+                    id: "chem_u17_alcohols",
+                    title: "Alcohols",
+                    topics: [
+                      "General methods of preparation of alcohols",
+                      "Physical and chemical properties of alcohols",
+                      "Identification of primary, secondary and tertiary alcohols",
+                      "Mechanism of dehydration of alcohols"
+                    ]
+                  },
+                  {
+                    id: "chem_u17_phenols",
+                    title: "Phenols",
+                    topics: [
+                      "General methods of preparation of phenols",
+                      "Acidic nature of phenols",
+                      "Electrophilic substitution reactions: halogenation, nitration, sulphonation",
+                      "Reimer–Tiemann reaction"
+                    ]
+                  },
+                  {
+                    id: "chem_u17_ethers",
+                    title: "Ethers",
+                    topics: [
+                      "Structure of ethers",
+                      "General methods of preparation and properties (brief)"
+                    ]
+                  },
+                  {
+                    id: "chem_u17_aldehydes",
+                    title: "Aldehydes and Ketones",
+                    topics: [
+                      "Nature of carbonyl group",
+                      "Nucleophilic addition to >C=O group",
+                      "Relative reactivities of aldehydes and ketones",
+                      "Addition of HCN, NH3 and its derivatives",
+                      "Reaction with Grignard reagent",
+                      "Oxidation and reduction (Wolff–Kishner and Clemmensen reduction)",
+                      "Acidity of α-hydrogen",
+                      "Aldol condensation",
+                      "Cannizzaro reaction",
+                      "Haloform reaction",
+                      "Tests to distinguish aldehydes and ketones"
+                    ]
+                  },
+                  {
+                    id: "chem_u17_acids",
+                    title: "Carboxylic Acids",
+                    topics: [
+                      "General methods of preparation of carboxylic acids",
+                      "Physical and chemical properties",
+                      "Acidic strength and factors affecting it"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "chem_u18",
+                title: "Unit 18: Organic Compounds Containing Nitrogen",
+                parts: [
+                  {
+                    id: "chem_u18_amines",
+                    title: "Amines",
+                    topics: [
+                      "General methods of preparation of amines",
+                      "Nomenclature and classification",
+                      "Structure of amines",
+                      "Basic character of amines and comparison",
+                      "Identification of primary, secondary and tertiary amines"
+                    ]
+                  },
+                  {
+                    id: "chem_u18_diazo",
+                    title: "Diazonium Salts",
+                    topics: [
+                      "Preparation and properties (brief)",
+                      "Importance of diazonium salts in synthetic organic chemistry"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "chem_u19",
+                title: "Unit 19: Biomolecules",
+                parts: [
+                  {
+                    id: "chem_u19_carbs",
+                    title: "Carbohydrates",
+                    topics: [
+                      "General introduction and importance of biomolecules",
+                      "Classification of carbohydrates",
+                      "Aldoses and ketoses",
+                      "Monosaccharides – glucose and fructose",
+                      "Constituent monosaccharides of sucrose, lactose and maltose"
+                    ]
+                  },
+                  {
+                    id: "chem_u19_proteins",
+                    title: "Proteins and Enzymes",
+                    topics: [
+                      "Elementary idea of α-amino acids",
+                      "Peptide bond and polypeptides",
+                      "Primary, secondary, tertiary and quaternary structure of proteins (qualitative idea)",
+                      "Denaturation of proteins",
+                      "Enzymes – basic idea and role"
+                    ]
+                  },
+                  {
+                    id: "chem_u19_vitamins",
+                    title: "Vitamins",
+                    topics: [
+                      "Classification of vitamins",
+                      "Functions of vitamins (overview)"
+                    ]
+                  },
+                  {
+                    id: "chem_u19_nucleic",
+                    title: "Nucleic Acids & Hormones",
+                    topics: [
+                      "Chemical constitution of DNA and RNA",
+                      "Biological functions of nucleic acids",
+                      "Hormones: general introduction"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "chem_u20",
+                title: "Unit 20: Principles Related to Practical Chemistry",
+                topics: [
+                  "Detection of extra elements (N, S, halogens) in organic compounds",
+                  "Detection of functional groups: hydroxyl (alcohol/phenol), carbonyl (aldehyde/ketone), carboxyl, amino",
+                  "Preparation of Mohr’s salt and potash alum",
+                  "Preparation of organic compounds: acetanilide, p-nitroacetanilide, aniline yellow, iodoform",
+                  "Titrimetric principles: acids, bases and indicators",
+                  "Titration of oxalic acid vs KMnO4",
+                  "Titration of Mohr’s salt vs KMnO4",
+                  "Qualitative salt analysis: cations – Pb²⁺, Cu²⁺, Al³⁺, Fe³⁺, Zn²⁺, Ni²⁺, Ca²⁺, Ba²⁺, Mg²⁺, NH₄⁺",
+                  "Qualitative salt analysis: anions – CO₃²⁻, S²⁻, SO₄²⁻, NO₃⁻, NO₂⁻, Cl⁻, Br⁻, I⁻ (insoluble salts excluded)",
+                  "Enthalpy of solution of CuSO4",
+                  "Enthalpy of neutralization of strong acid and strong base",
+                  "Preparation of lyophilic and lyophobic sols",
+                  "Kinetic study of reaction of iodide ions with H₂O₂ at room temperature"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    // ------------- PROGRESS STORAGE -------------
+
+    const STORAGE_KEY = "jee_syllabus_topic_progress_v3";
+
+    function topicKey(subject, categoryId, unitId, partId, index) {
+      return [
+        subject,
+        categoryId || "root",
+        unitId || "u",
+        partId || "main",
+        index
+      ].join("|");
+    }
+
+    function loadProgress() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return {};
+        return JSON.parse(raw);
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveProgress(progress) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    }
+
+    const progressState = loadProgress();
+
+    // maps for UI updates
+    const unitProgressSpans = {};        // key: subject|unitId
+    const unitCardElems = {};            // key: subject|unitId
+    const partProgressSpans = {};        // key: subject|unitId|partId
+    const partCardElems = {};            // key: subject|unitId|partId
+    const subjectMetaSpans = {};         // key: subject
+    const subjectCardElems = {};         // key: subject
+    const categoryMetaSpans = {};        // key: subject|categoryId
+
+    const subjectsContainer = document.getElementById("subjects");
+    const overallProgressEl = document.getElementById("overallProgress");
+
+
+    // ------------- RENDER -------------
+
+    function createTopicCheckbox(subject, categoryId, unitId, maybePartId, topicText, index) {
+      const li = document.createElement("li");
+
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.className = "checkbox";
+
+      const key = topicKey(subject, categoryId, unitId, maybePartId, index);
+      if (progressState[key]) cb.checked = true;
+
+      cb.addEventListener("click", () => {
+        progressState[key] = cb.checked;
+        saveProgress(progressState);
+        updateAllProgress();
+      });
+
+      const label = document.createElement("span");
+      label.className = "topic-label";
+      label.textContent = topicText;
+
+      li.appendChild(cb);
+      li.appendChild(label);
+      return li;
+    }
+
+    function createUnitBody(subjectName, categoryId, unit) {
+      const unitBody = document.createElement("div");
+      unitBody.className = "unit-body";
+
+      if (unit.parts) {
+        unit.parts.forEach(part => {
+          const pCard = document.createElement("div");
+          pCard.className = "part-card";
+
+          const pHeader = document.createElement("div");
+          pHeader.className = "part-header";
+
+          const pTitleWrap = document.createElement("div");
+          pTitleWrap.className = "part-title-wrap";
+
+          const pTitle = document.createElement("div");
+          pTitle.className = "part-title";
+          pTitle.textContent = part.title;
+
+          const pProg = document.createElement("span");
+          pProg.className = "unit-progress";
+          pProg.textContent = "";
+
+          const partKey = `${subjectName}|${unit.id}|${part.id}`;
+          partProgressSpans[partKey] = pProg;
+          partCardElems[partKey] = pCard;
+
+          pTitleWrap.appendChild(pTitle);
+          pTitleWrap.appendChild(pProg);
+
+          const pChev = document.createElement("span");
+          pChev.textContent = "▼";
+          pChev.style.fontSize = "0.7rem";
+          pChev.style.color = "#9ca3af";
+
+          pHeader.appendChild(pTitleWrap);
+          pHeader.appendChild(pChev);
+
+          const pBody = document.createElement("div");
+          pBody.className = "part-body";
+
+          const ul = document.createElement("ul");
+          ul.className = "topic-list";
+
+          part.topics.forEach((t, idx) => {
+            const li = createTopicCheckbox(subjectName, categoryId, unit.id, part.id, t, idx);
+            ul.appendChild(li);
+          });
+
+          pBody.appendChild(ul);
+
+          pHeader.addEventListener("click", () => {
+            const visible = pBody.style.display === "block";
+            pBody.style.display = visible ? "none" : "block";
+          });
+
+          pCard.appendChild(pHeader);
+          pCard.appendChild(pBody);
+          unitBody.appendChild(pCard);
+        });
+      } else {
+        const ul = document.createElement("ul");
+        ul.className = "topic-list";
+        unit.topics.forEach((t, idx) => {
+          const li = createTopicCheckbox(subjectName, categoryId, unit.id, null, t, idx);
+          ul.appendChild(li);
+        });
+        unitBody.appendChild(ul);
+      }
+
+      return unitBody;
+    }
+
+    function createUnitCard(subjectName, categoryId, unit) {
+      const unitCard = document.createElement("div");
+      unitCard.className = "unit-card";
+
+      const uHeader = document.createElement("div");
+      uHeader.className = "unit-header";
+
+      const uLeft = document.createElement("div");
+      uLeft.className = "unit-left";
+
+      const uTitle = document.createElement("div");
+      uTitle.className = "unit-title";
+      uTitle.textContent = unit.title;
+
+      uLeft.appendChild(uTitle);
+
+      const right = document.createElement("div");
+      const count = document.createElement("span");
+      count.className = "unit-topics-count";
+
+      let totalTopics = 0;
+      if (unit.parts) {
+        unit.parts.forEach(p => totalTopics += p.topics.length);
+      } else {
+        totalTopics = unit.topics.length;
+      }
+      count.textContent = `${totalTopics} topics`;
+
+      const up = document.createElement("span");
+      up.className = "unit-progress";
+      up.textContent = "";
+      const unitKey = `${subjectName}|${unit.id}`;
+      unitProgressSpans[unitKey] = up;
+      unitCardElems[unitKey] = unitCard;
+
+      right.appendChild(count);
+      right.appendChild(up);
+
+      uHeader.appendChild(uLeft);
+      uHeader.appendChild(right);
+
+      const unitBody = createUnitBody(subjectName, categoryId, unit);
+
+      uHeader.addEventListener("click", () => {
+        const visible = unitBody.style.display === "block";
+        unitBody.style.display = visible ? "none" : "block";
+      });
+
+      unitCard.appendChild(uHeader);
+      unitCard.appendChild(unitBody);
+      return unitCard;
+    }
+
+    function createCategoryCard(subjectName, category) {
+      const card = document.createElement("div");
+      card.className = "category-card";
+
+      const header = document.createElement("div");
+      header.className = "category-header";
+
+      const left = document.createElement("div");
+      const title = document.createElement("div");
+      title.className = "category-title";
+      title.textContent = category.title;
+
+      const meta = document.createElement("div");
+      meta.className = "category-meta";
+      meta.textContent = `${category.units.length} units`;
+      categoryMetaSpans[`${subjectName}|${category.id}`] = meta;
+
+      left.appendChild(title);
+      left.appendChild(meta);
+
+      const chev = document.createElement("span");
+      chev.textContent = "▶";
+      chev.style.fontSize = "0.8rem";
+
+      header.appendChild(left);
+      header.appendChild(chev);
+
+      const body = document.createElement("div");
+      body.className = "category-body";
+
+      category.units.forEach(unit => {
+        const uCard = createUnitCard(subjectName, category.id, unit);
+        body.appendChild(uCard);
+      });
+
+      header.addEventListener("click", () => {
+        const visible = body.style.display === "block";
+        body.style.display = visible ? "none" : "block";
+        chev.textContent = visible ? "▶" : "▼";
+      });
+
+      card.appendChild(header);
+      card.appendChild(body);
+      return card;
+    }
+
+    function createSubjectCard(subjectName, subjectData) {
+      const card = document.createElement("div");
+      card.className = "subject-card";
+      subjectCardElems[subjectName] = card;
+
+      const header = document.createElement("div");
+      header.className = "subject-header";
+
+      const left = document.createElement("div");
+      const title = document.createElement("div");
+      title.className = "subject-title";
+      title.textContent = subjectName;
+
+      const meta = document.createElement("div");
+      meta.className = "subject-meta";
+      meta.textContent = "";
+      subjectMetaSpans[subjectName] = meta;
+
+      left.appendChild(title);
+      left.appendChild(meta);
+
+      const rightWrap = document.createElement("div");
+      const chev = document.createElement("span");
+      chev.className = "chevron";
+      chev.textContent = "▶";
+
+      rightWrap.appendChild(chev);
+
+      header.appendChild(left);
+      header.appendChild(rightWrap);
+
+      const body = document.createElement("div");
+      body.className = "subject-body";
+
+      if (subjectData.categories) {
+        subjectData.categories.forEach(cat => {
+          const cCard = createCategoryCard(subjectName, cat);
+          body.appendChild(cCard);
+        });
+      } else if (subjectData.units) {
+        subjectData.units.forEach(unit => {
+          const uCard = createUnitCard(subjectName, null, unit);
+          body.appendChild(uCard);
+        });
+      }
+
+      header.addEventListener("click", () => {
+        const visible = body.style.display === "block";
+        body.style.display = visible ? "none" : "block";
+        chev.classList.toggle("open", !visible);
+      });
+
+      card.appendChild(header);
+      card.appendChild(body);
+      return card;
+    }
+
+    // ------------- PROGRESS UPDATE -------------
+
+    function updateAllProgress() {
+      let grandTotalTopics = 0;
+      let grandDoneTopics = 0;
+      Object.entries(syllabus).forEach(([subjectName, subjectData]) => {
+        let totalUnits = 0;
+        let completedUnits = 0;
+
+        const processUnits = (units, categoryId) => {
+          units.forEach(unit => {
+            totalUnits++;
+            let topics = [];
+
+            if (unit.parts) {
+              unit.parts.forEach(part => {
+                const partTopics = part.topics.map((_, idx) => ({
+                  key: topicKey(subjectName, categoryId, unit.id, part.id, idx)
+                }));
+
+                let partDone = 0;
+                partTopics.forEach(t => {
+                  if (progressState[t.key]) partDone++;
+                });
+
+                const pKey = `${subjectName}|${unit.id}|${part.id}`;
+                const pSpan = partProgressSpans[pKey];
+                const pCard = partCardElems[pKey];
+                const totalP = partTopics.length;
+
+                if (pSpan) {
+                  if (partDone === totalP && totalP > 0) {
+                    pSpan.textContent = "✓ Completed";
+                    pSpan.classList.add("badge-complete");
+                  } else {
+                    pSpan.textContent = `${partDone}/${totalP} done`;
+                    pSpan.classList.remove("badge-complete");
+                  }
+                }
+
+                if (pCard) {
+                  if (partDone === totalP && totalP > 0) {
+                    pCard.classList.add("complete");
+                  } else {
+                    pCard.classList.remove("complete");
+                  }
+                }
+
+                topics = topics.concat(partTopics);
+              });
+            } else {
+              topics = unit.topics.map((_, idx) => ({
+                key: topicKey(subjectName, categoryId, unit.id, null, idx)
+              }));
+            }
+
+            let doneCount = 0;
+            topics.forEach(t => {
+              if (progressState[t.key]) doneCount++;
+            });
+
+            const unitKey = `${subjectName}|${unit.id}`;
+            const uSpan = unitProgressSpans[unitKey];
+            const uCard = unitCardElems[unitKey];
+            const totalT = topics.length;
+
+
+            if (uSpan) {
+              if (doneCount === totalT && totalT > 0) {
+                uSpan.textContent = "• ✓ Unit complete";
+                uSpan.classList.add("badge-unit-complete");
+              } else {
+                uSpan.textContent = `• ${doneCount}/${totalT} done`;
+                uSpan.classList.remove("badge-unit-complete");
+              }
+            }
+
+            grandTotalTopics += totalT;
+            grandDoneTopics += doneCount; 
+
+            if (uCard) {
+              if (doneCount === totalT && totalT > 0) {
+                uCard.classList.add("complete");
+                completedUnits++;
+              } else {
+                uCard.classList.remove("complete");
+              }
+            }
+          });
+        };
+
+        if (subjectData.categories) {
+          subjectData.categories.forEach(cat => {
+            processUnits(cat.units, cat.id);
+
+            const key = `${subjectName}|${cat.id}`;
+            const span = categoryMetaSpans[key];
+            if (span) {
+              const catTotalUnits = cat.units.length;
+              let catCompleted = 0;
+              cat.units.forEach(u => {
+                const uKey = `${subjectName}|${u.id}`;
+                const uCard = unitCardElems[uKey];
+                if (uCard && uCard.classList.contains("complete")) catCompleted++;
+              });
+              span.textContent = `${catTotalUnits} units • ${catCompleted} complete`;
+            }
+          });
+        } else if (subjectData.units) {
+          processUnits(subjectData.units, null);
+        }
+
+        const sMeta = subjectMetaSpans[subjectName];
+        const sCard = subjectCardElems[subjectName];
+        if (sMeta) {
+          sMeta.textContent = `${totalUnits} units • ${completedUnits} complete`;
+        }
+        if (sCard) {
+          if (completedUnits === totalUnits && totalUnits > 0) {
+            sCard.classList.add("complete");
+          } else {
+            sCard.classList.remove("complete");
+          }
+        }
+      });
+      if (overallProgressEl) {
+        const percent = grandTotalTopics > 0
+          ? Math.round((grandDoneTopics / grandTotalTopics) * 100)
+          : 0;
+
+        overallProgressEl.textContent =
+          `Overall JEE Progress: ${percent}% (${grandDoneTopics} / ${grandTotalTopics} topics done)`;
+      }
+    }
+
+    // ------------- INIT -------------
+
+    Object.entries(syllabus).forEach(([name, data]) => {
+      const sCard = createSubjectCard(name, data);
+      subjectsContainer.appendChild(sCard);
+    });
+
+    updateAllProgress();
+  </script>
+</body>
+</html>
