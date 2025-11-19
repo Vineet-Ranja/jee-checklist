@@ -1,0 +1,434 @@
+/* ====== Base Layout & Theme ====== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-main: #020617;
+  --bg-card: #020617;
+  --bg-card-soft: #020617;
+  --bg-highlight: #022c22;
+  --border-subtle: #1f2937;
+  --border-strong: #22c55e;
+  --text-main: #e5e7eb;
+  --text-soft: #9ca3af;
+  --accent: #22c55e;
+  --accent-soft: #bbf7d0;
+  --shadow-soft: 0 18px 35px rgba(0, 0, 0, 0.65);
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 8px;
+  --transition-fast: 0.18s ease;
+  --transition-normal: 0.25s ease;
+}
+
+/* Nice smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top, #1d283a 0, rgba(15, 23, 42, 0.6) 40%, #020617 75%),
+    #020617;
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+}
+
+/* ====== Container & Header ====== */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 16px 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 6px;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  margin-bottom: 10px;
+}
+
+/* Overall progress bar / text (id from your HTML) */
+#overallProgress {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  color: var(--text-main);
+}
+
+/* ====== Legend ====== */
+
+.legend {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.legend span {
+  margin: 0 8px;
+}
+
+.pill {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  margin-right: 4px;
+  background: var(--accent);
+}
+
+.pill-pending {
+  background: #6b7280;
+}
+
+.pill-done {
+  background: var(--accent);
+}
+
+/* ====== Subject Cards ====== */
+
+.subject-card {
+  background: rgba(15, 23, 42, 0.92);
+  border-radius: var(--radius-lg);
+  margin-bottom: 16px;
+  border: 1px solid rgba(31, 41, 55, 0.9);
+  overflow: hidden;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-normal),
+    transform var(--transition-fast);
+  backdrop-filter: blur(14px);
+}
+
+.subject-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+  border-color: #334155;
+}
+
+.subject-card.complete {
+  border-color: var(--border-strong);
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4), var(--shadow-soft);
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.9), rgba(15, 23, 42, 0.96));
+}
+
+.subject-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.subject-header:hover {
+  background: radial-gradient(circle at top left, rgba(15, 118, 110, 0.25), rgba(15, 23, 42, 0.9));
+}
+
+.subject-title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.subject-meta,
+.subject-progress {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.subject-body {
+  display: none;
+  padding: 4px 10px 12px;
+}
+
+/* Chevron arrow */
+.chevron {
+  transition: transform var(--transition-fast);
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.chevron.open {
+  transform: rotate(90deg);
+}
+
+/* ====== Category Cards (Chemistry sections) ====== */
+
+.category-card {
+  background: rgba(15, 23, 42, 0.92);
+  border-radius: var(--radius-md);
+  margin-top: 10px;
+  border: 1px solid rgba(31, 41, 55, 0.95);
+  overflow: hidden;
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.category-header:hover {
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.category-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.category-meta {
+  font-size: 0.75rem;
+  color: var(--text-soft);
+}
+
+.category-body {
+  display: none;
+  padding: 0 8px 10px 8px;
+}
+
+/* ====== Units ====== */
+
+.unit-card {
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: var(--radius-md);
+  margin-top: 8px;
+  border: 1px solid rgba(31, 41, 55, 0.9);
+  overflow: hidden;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.unit-card.complete {
+  border-color: var(--border-strong);
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5);
+  background: linear-gradient(135deg, rgba(5, 46, 22, 0.9), rgba(15, 23, 42, 0.96));
+}
+
+.unit-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.unit-header:hover {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.unit-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.unit-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.unit-topics-count {
+  font-size: 0.75rem;
+  color: var(--text-soft);
+}
+
+.unit-progress {
+  font-size: 0.72rem;
+  color: var(--text-soft);
+  margin-left: 8px;
+}
+
+.unit-body {
+  display: none;
+  padding: 2px 12px 10px 22px;
+  background: rgba(15, 23, 42, 0.96);
+  border-top: 1px solid rgba(31, 41, 55, 0.95);
+}
+
+/* ====== Parts (Optics Ray/Wave, Equilibrium parts, etc.) ====== */
+
+.part-card {
+  margin-top: 6px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(31, 41, 55, 0.9);
+  overflow: hidden;
+  background: #020617;
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.part-card:hover {
+  transform: translateY(-1px);
+  border-color: #4b5563;
+}
+
+.part-card.complete {
+  border-color: var(--border-strong);
+  background: radial-gradient(circle at top left, rgba(21, 128, 61, 0.35), #020617);
+}
+
+.part-header {
+  padding: 6px 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.part-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.part-title {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.part-body {
+  display: none;
+  padding: 4px 10px 8px 16px;
+  border-top: 1px solid rgba(31, 41, 55, 0.9);
+}
+
+/* ====== Topic List & Checkboxes ====== */
+
+ul.topic-list {
+  margin: 6px 0;
+  padding-left: 0;
+  font-size: 0.85rem;
+  list-style: none;
+}
+
+ul.topic-list li {
+  margin-bottom: 4px;
+  line-height: 1.3;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.topic-label {
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Green accent checkboxes */
+.checkbox {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  margin-top: 1px;
+  accent-color: var(--accent);
+}
+
+/* ====== Badges & Tags ====== */
+
+.badge {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid #374151;
+  color: var(--text-soft);
+  margin-left: 6px;
+}
+
+.badge-complete {
+  border-color: var(--border-strong);
+  color: var(--accent-soft);
+}
+
+.badge-unit-complete {
+  border-color: var(--border-strong);
+  color: var(--accent-soft);
+  margin-left: 6px;
+}
+
+.badge-category {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: #1e293b;
+  color: var(--text-main);
+  margin-left: 6px;
+}
+
+/* ====== Footer ====== */
+
+.footer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 18px;
+  padding-bottom: 14px;
+}
+
+/* ====== Scrollbar (desktop) ====== */
+
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #020617;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+  }
+}
+
+/* ====== Responsive tweaks ====== */
+
+@media (max-width: 640px) {
+  .container {
+    padding: 10px;
+  }
+
+  .unit-body {
+    padding-left: 16px;
+  }
+
+  .subject-header {
+    padding-inline: 12px;
+  }
+
+  .unit-header {
+    padding-inline: 10px;
+  }
+
+  .category-header {
+    padding-inline: 10px;
+  }
+}
