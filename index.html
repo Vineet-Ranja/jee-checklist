@@ -1975,6 +1975,11 @@
         overallProgressEl.textContent =
           `Overall JEE Progress: ${percent}% (${grandDoneTopics} / ${grandTotalTopics} topics done)`;
       }
+      const fillEl = document.getElementById("progressFill");
+      if (fillEl) {
+        fillEl.style.width = percent + "%";
+      }
+
     }
 
     // ------------- INIT -------------
@@ -1988,6 +1993,7 @@
   </script>
 </body>
 </html>
+
 
 
 
