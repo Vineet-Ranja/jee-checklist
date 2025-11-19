@@ -435,144 +435,118 @@ ul.topic-list li {
 }
 
 /* =========================================================
-   IDEA 3 — PASTEL LIGHT THEME  (Notion-style clean UI)
+   IDEA 4 — Subject themed backgrounds (Math / Physics / Chem)
    ========================================================= */
 
-body {
-  background: #f5f5f7 !important;
-  color: #1f2937 !important;
+/* base: subject accent colours (agar pehle se nahi diye) */
+.subject-card.subject-math {
+  --subject-accent: #38bdf8;   /* sky blue */
 }
 
-/* Container thoda slim lagta hai light theme me */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px 16px 20px;
+.subject-card.subject-physics {
+  --subject-accent: #a855f7;   /* purple */
 }
 
-/* Header text darker */
-h1 {
-  color: #111827;
+.subject-card.subject-chem {
+  --subject-accent: #22c55e;   /* green */
 }
 
-.subtitle {
-  color: #6b7280;
-}
-
-/* Overall Progress text */
-#overallProgress {
-  color: #111827;
-}
-
-/* Legend text */
-.legend {
-  color: #6b7280;
-}
-
-/* Subject cards: white, soft shadow */
+/* subject cards ko themed background dena */
 .subject-card {
-  background: #ffffff !important;
-  border-radius: 14px;
-  border: 1px solid #e5e7eb !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
-  backdrop-filter: none;
+  position: relative; /* gradients ke liye safe */
 }
 
-.subject-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12) !important;
-  border-color: #d1d5db !important;
+/* ========== Mathematics: grid / geometry vibe ========== */
+.subject-card.subject-math {
+  background:
+    /* light blue blob top left */
+    radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.22), transparent 55%),
+    /* darker blue blob bottom right */
+    radial-gradient(circle at 100% 100%, rgba(37, 99, 235, 0.22), transparent 55%),
+    /* subtle grid pattern */
+    repeating-linear-gradient(
+      90deg,
+      rgba(15, 23, 42, 0.92) 0,
+      rgba(15, 23, 42, 0.92) 1px,
+      rgba(15, 23, 42, 1) 1px,
+      rgba(15, 23, 42, 1) 18px
+    ),
+    #020617;
 }
 
-/* Subject complete: light mint highlight */
-.subject-card.complete {
-  border-color: #34d399 !important;
-  box-shadow: 0 0 0 2px #a7f3d0, 0 6px 20px rgba(0, 0, 0, 0.12) !important;
-  background: #ecfdf5 !important;
+/* units / parts inside maths card – slight blue border */
+.subject-card.subject-math .unit-card,
+.subject-card.subject-math .part-card {
+  border-color: rgba(56, 189, 248, 0.35);
 }
 
-/* Subject header hover: light grey instead of dark gradient */
-.subject-header:hover {
-  background: #f3f4f6 !important;
+/* ========== Physics: galaxy / space vibe ========== */
+.subject-card.subject-physics {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(129, 140, 248, 0.28), transparent 55%),
+    radial-gradient(circle at 80% 100%, rgba(236, 72, 153, 0.24), transparent 55%),
+    radial-gradient(circle at 60% 30%, rgba(56, 189, 248, 0.16), transparent 50%),
+    #020617;
 }
 
-/* Category / Unit / Part: white cards */
-.category-card,
-.unit-card,
-.part-card {
-  background: #ffffff !important;
-  border: 1px solid #e5e7eb !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+/* physics units / parts — purple-ish borders */
+.subject-card.subject-physics .unit-card,
+.subject-card.subject-physics .part-card {
+  border-color: rgba(168, 85, 247, 0.4);
 }
 
-.category-header:hover,
-.unit-header:hover {
-  background: #f9fafb !important;
+/* ========== Chemistry: lab / molecules vibe ========== */
+.subject-card.subject-chem {
+  background:
+    radial-gradient(circle at 0% 30%, rgba(34, 197, 94, 0.26), transparent 55%),
+    radial-gradient(circle at 100% 70%, rgba(45, 212, 191, 0.22), transparent 55%),
+    radial-gradient(circle at 50% 0%, rgba(74, 222, 128, 0.14), transparent 45%),
+    #020617;
 }
 
-/* Completed unit/part: soft green tint */
-.unit-card.complete,
-.part-card.complete {
-  border-color: #34d399 !important;
-  background: #f0fdf4 !important;
+/* chem units / parts — teal/green borders */
+.subject-card.subject-chem .unit-card,
+.subject-card.subject-chem .part-card {
+  border-color: rgba(34, 197, 94, 0.4);
 }
 
-/* Part hover light */
-.part-card:hover {
-  transform: translateY(-1px);
-  border-color: #d1d5db !important;
+/* ========== Subject titles me emoji icons (optional but cute) ========== */
+.subject-card.subject-math .subject-title::before {
+  content: "📘";
+  margin-right: 6px;
+  font-size: 0.95rem;
 }
 
-/* Topic text darker */
-.topic-label,
-.unit-title,
-.part-title,
-.subject-title {
-  color: #111827 !important;
+.subject-card.subject-physics .subject-title::before {
+  content: "🌌";
+  margin-right: 6px;
+  font-size: 0.95rem;
 }
 
-/* Meta text (counts, etc.) softer grey */
-.subject-meta,
-.subject-progress,
-.unit-topics-count,
-.unit-progress,
-.category-meta,
-.footer {
-  color: #6b7280 !important;
+.subject-card.subject-chem .subject-title::before {
+  content: "🧪";
+  margin-right: 6px;
+  font-size: 0.95rem;
 }
 
-/* Checkboxes – soft green accent */
-.checkbox {
-  accent-color: #22c55e !important;
+/* complete state ko subject accent se tie karo */
+.subject-card.subject-math.complete,
+.subject-card.subject-physics.complete,
+.subject-card.subject-chem.complete {
+  border-color: var(--subject-accent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--subject-accent) 60%, transparent),
+    0 18px 35px rgba(0, 0, 0, 0.65);
 }
 
-/* Badges: light border, green when complete */
-.badge {
-  border-color: #e5e7eb;
-  color: #6b7280;
+/* unit/part complete border = subject accent */
+.subject-card.subject-math .unit-card.complete,
+.subject-card.subject-physics .unit-card.complete,
+.subject-card.subject-chem .unit-card.complete,
+.subject-card.subject-math .part-card.complete,
+.subject-card.subject-physics .part-card.complete,
+.subject-card.subject-chem .part-card.complete {
+  border-color: var(--subject-accent);
 }
 
-.badge-complete,
-.badge-unit-complete {
-  border-color: #34d399 !important;
-  color: #15803d !important;
-}
-
-/* Footer light */
-.footer {
-  color: #6b7280;
-}
-
-/* Light scrollbar */
-@media (min-width: 768px) {
-  ::-webkit-scrollbar-track {
-    background: #e5e7eb !important;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #cbd5f5 !important;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af !important;
-  }
-}
 
