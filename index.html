@@ -325,11 +325,7 @@
   <div class="container">
     <h1>JEE Main Paper 1 – Syllabus Tracker</h1>
     <div class="subtitle">Mathematics • Physics • Chemistry – Topic-wise progress with auto-completion</div>
-    <div class="progress-banner">
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-    </div>
+    
 
     <div id="overallProgress"
       style="text-align:center;font-size:0.9rem;margin-bottom:10px;color:#e5e7eb;">
@@ -1780,13 +1776,7 @@
       const card = document.createElement("div");
       card.className = "subject-card";
 
-      if (subjectName === "Mathematics") {
-        card.classList.add("subject-math");
-      } else if (subjectName === "Physics") {
-        card.classList.add("subject-physics");
-      } else if (subjectName === "Chemistry") {
-        card.classList.add("subject-chem");
-      }
+      
       
       subjectCardElems[subjectName] = card;
 
@@ -1975,11 +1965,7 @@
         overallProgressEl.textContent =
           `Overall JEE Progress: ${percent}% (${grandDoneTopics} / ${grandTotalTopics} topics done)`;
       }
-      const fillEl = document.getElementById("progressFill");
-      if (fillEl) {
-        fillEl.style.width = percent + "%";
-      }
-
+    
     }
 
     // ------------- INIT -------------
@@ -1993,6 +1979,7 @@
   </script>
 </body>
 </html>
+
 
 
 
